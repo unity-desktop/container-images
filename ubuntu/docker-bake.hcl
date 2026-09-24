@@ -36,13 +36,7 @@ target "default" {
   target     = variant
   pull       = true
 
-  platforms = [
-    "linux/amd64",
-    "linux/arm64",
-    "linux/ppc64le",
-    "linux/riscv64",
-    "linux/s390x",
-  ]
+  platforms = ["linux/amd64", "linux/arm64"]
 
   args = {
     SUITE             = release.codename
@@ -61,8 +55,11 @@ target "default" {
     "${REGISTRY}/${variant}:${release.alias}",
   ]
 
-  cache-from = ["type=registry,ref=${REGISTRY}/${variant}:buildcache-${release.codename}"]
-  cache-to   = ["type=registry,ref=${REGISTRY}/${variant}:buildcache-${release.codename},compression=zstd,compression-level=12,ignore-error=true"]
+  cache-from = [
+    "type=registry,ref=${REGISTRY}/base:buildcache-${release.codename}",
+    "type=registry,ref=${REGISTRY}/builder:buildcache-${release.codename}",
+  ]
+  cache-to = ["type=registry,ref=${REGISTRY}/${variant}:buildcache-${release.codename},mode=max,compression=zstd,compression-level=12,ignore-error=true"]
 
   attest = [
     "type=provenance,mode=max,builder-id=https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}",

@@ -27,6 +27,8 @@ EOT
 
 FROM scratch AS base
 
+SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
+
 COPY --link --from=ubuntu / /
 
 ENTRYPOINT ["tini", "--"]
