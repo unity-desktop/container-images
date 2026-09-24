@@ -36,8 +36,6 @@ target "default" {
   target     = variant
   pull       = true
 
-  platforms = ["linux/amd64", "linux/arm64"]
-
   args = {
     SUITE             = release.codename
     SOURCE_DATE_EPOCH = SOURCE_DATE_EPOCH
