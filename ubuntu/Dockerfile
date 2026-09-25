@@ -11,6 +11,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=tmpfs,target=/var/log <<-EOT
     apt-get update
     apt-get install -y --no-install-recommends apt-transport-oci ca-certificates tini
+    userdel --remove ubuntu
 EOT
 
 COPY --link unity.asc /etc/apt/keyrings/unity.asc
